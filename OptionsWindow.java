@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>fgcom-mumble</groupId>
+    <artifactId>FGCom-mumble-radioGUI</artifactId>
+    <version>1.2.1</version>  <!-- VERSION of the Application -->
+    <packaging>jar</packaging>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+    
+    <dependencies>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>0.42</version>
+        </dependency>
+        
+        <!-- you must install the dependency to your local repo; kindly use the provided jar in the projects lib tree -->
+        <!-- eg. `mvn install:install-file ...`; see the makefile for the command -->
+        <dependency>
+            <groupId>flightsim</groupId>
+            <artifactId>jsimconnect</artifactId>
+            <version>0.8.0</version>
+        </dependency>
+        
+        <!-- https://mvnrepository.com/artifact/org.openstreetmap.jmapviewer/jmapviewer -->
+        <!-- you must install the dependency to your local repo; kindly use the provided jar in the projects lib tree -->
+        <!-- eg. `mvn install:install-file ...`; see the makefile for the command -->
+        <dependency>
+            <groupId>org.openstreetmap.jmapviewer</groupId>
+            <artifactId>jmapviewer</artifactId>
+            <version>2.14</version>
+        </dependency>
+    </dependencies>
+    
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+          <plugin>
+            <!-- Plugin checks API compatibility of the sources to a java jdk -->
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>animal-sniffer-maven-plugin</artifactId>
+            <version>1.16</version>
+            <configuration>
+                <signature>
+                    <groupId>org.codehaus.mojo.signature</groupId>
+                    <artifactId>java18</artifactId>
+                    <version>1.0</version>
+                </signature>
+            </configuration>
+          </plugin>
+          <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>single</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+                <descriptorRefs>
+                  <descriptorRef>jar-with-dependencies</descriptorRef>
+                </descriptorRefs>
+                <archive>
+                  <manifest>
+                    <mainClass>hbeni.fgcom_mumble.radioGUI</mainClass>
+                  </manifest>
+                </archive>
+            </configuration>
+          </plugin>
+        </plugins>
+    </build>
+</project>
